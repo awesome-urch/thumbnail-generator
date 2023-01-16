@@ -26,7 +26,7 @@ class AuthController {
       }));
 
       try{
-        const user = await User.verify(username, password);
+        const user = await new User().verify(username, password);
         if(user){
           this.res.json({
             ok: true,
@@ -52,13 +52,13 @@ class AuthController {
         }));
       }
 
-      const user = await User.findOne({ username: props.username });
+      const user = await new User().findOne({ username: props.username });
       if(user) return this.next(createError({
         status: CONFLICT,
         message: "Username already exists"
       }));
 
-      const newUser = await User.create(props);
+      const newUser = await new User().create(props);
 
       this.res.json({
         ok: true,

@@ -52,7 +52,5 @@ class UserModel extends BaseModel {
 
 }
 
-const User = new UserModel;
-
-export default User;
+export default UserModel;
 

@@ -10,5 +10,8 @@ router.post("/wallet/credit", (req, res, next) => {
   controller.credit();
 });
 
-
+router.post("/wallet/debit", (req, res, next) => {
+  const controller = new TransactionController(req, res, next);
+  controller.debit();
+});
   

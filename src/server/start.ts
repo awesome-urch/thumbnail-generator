@@ -1,12 +1,8 @@
-#!/usr/bin/env node
-
-
 "use strict";
 
 import "dotenv/config";
 
 const PORT = process.env.PORT || 4000;
-// const PORT = 3000
 
 // const app = require('../server.ts')
 
@@ -17,9 +13,9 @@ import bodyParser from "body-parser";
 
 // import { router as auth_routes } from "./routes/auth_routes.js";
 import { router as authRoutes } from "./routes/auth_routes";
-import { router as userRoutes } from "./routes/user_routes";
 import { router as walletRoutes } from "./routes/wallet_routes";
 import { router as transactionRoutes } from "./routes/transaction_routes";
+import { router as transferRoutes } from "./routes/transfer_routes";
 import { all } from "./middleware/error_middleware";
 
 const app = express();
@@ -29,9 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", [
   authRoutes,
-  userRoutes,
   walletRoutes,
   transactionRoutes,
+  transferRoutes
 ]);
 
 app.use(all);

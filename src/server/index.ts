@@ -14,11 +14,11 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/", [
-  require("./routes/auth_routes.ts"),
-  require("./routes/user_routes.ts"),
-  require("./routes/wallet_routes.ts"),
-]);
+// app.use("/", [
+//   require("./routes/auth_routes.ts"),
+//   require("./routes/user_routes.ts"),
+//   require("./routes/wallet_routes.ts"),
+// ]);
 
 // app.use(require("./middleware/error_middleware.ts").all);
 

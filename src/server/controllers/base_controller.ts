@@ -1,11 +1,7 @@
-import Wallet from "../models/wallet";
 import User from "../models/user";
 import {
   createError,
-  BAD_REQUEST,
-  UNAUTHORIZED,
-  CONFLICT
-} from "../helpers/error_helper";
+  UNAUTHORIZED} from "../helpers/error_helper";
 
 
 class BaseController {
@@ -19,12 +15,18 @@ class BaseController {
     this.next = next;
   }
 
+  generateReference(){
+    return (Math.random() + 1).toString(36).substring(2);
+  }
+
   async checkUser(){
-    const user = await User.findOne({ id: this.req.body.user_id });
+    const user = await new User().findOne({ id: this.req.body.user_id });
     if(!user) return this.next(createError({
       status: UNAUTHORIZED,
       message: "Invalid user"
     }));
+
+    return user;
   }
 
 }

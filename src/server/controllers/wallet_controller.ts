@@ -31,19 +31,19 @@ class WalletController {
       }));
     }
 
-    const user = await User.findOne({ id: props.user_id });
+    const user = await new User().findOne({ id: props.user_id });
     if(!user) return this.next(createError({
       status: UNAUTHORIZED,
       message: "Invalid user"
     }));
 
-    const wallet = await Wallet.findOne({ user_id: props.user_id });
+    const wallet = await new Wallet().findOne({ user_id: props.user_id });
     if(wallet) return this.next(createError({
       status: CONFLICT,
       message: "User wallet already exists"
     }));
 
-    const newWallet = await Wallet.create(props);
+    const newWallet = await new Wallet().create(props);
 
     this.res.json({
       ok: true,

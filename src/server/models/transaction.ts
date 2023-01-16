@@ -17,7 +17,5 @@ class TransactionModel extends BaseModel {
 
 }
 
-const Transaction = new TransactionModel;
-
-export default Transaction;
+export default TransactionModel;
 

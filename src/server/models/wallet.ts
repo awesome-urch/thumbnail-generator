@@ -14,7 +14,5 @@ class WalletModel extends BaseModel {
 
 }
 
-const Wallet = new WalletModel;
-
-export default Wallet;
+export default WalletModel;
 

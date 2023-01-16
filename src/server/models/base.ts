@@ -43,6 +43,7 @@ class BaseModel {
   }
 
   findById(id) {
+    console.log(id);
     return this.knexInstance.select(this.selectableProps)
     .from(this.tableName)
     .where({ id })
