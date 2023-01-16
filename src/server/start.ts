@@ -16,8 +16,10 @@ import express from "express";
 import bodyParser from "body-parser";
 
 // import { router as auth_routes } from "./routes/auth_routes.js";
-import { router as auth_routes } from "./routes/auth_routes";
-import { router as user_routes } from "./routes/user_routes";
+import { router as authRoutes } from "./routes/auth_routes";
+import { router as userRoutes } from "./routes/user_routes";
+import { router as walletRoutes } from "./routes/wallet_routes";
+import { router as transactionRoutes } from "./routes/transaction_routes";
 import { all } from "./middleware/error_middleware";
 
 const app = express();
@@ -26,8 +28,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", [
-  auth_routes,
-  user_routes,
+  authRoutes,
+  userRoutes,
+  walletRoutes,
+  transactionRoutes,
 ]);
 
 app.use(all);

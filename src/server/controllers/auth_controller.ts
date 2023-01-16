@@ -6,8 +6,6 @@ import {
   CONFLICT
 } from "../helpers/error_helper";
 
-// const User = new User();
-
 class AuthController {
     res: any;
     req: any;

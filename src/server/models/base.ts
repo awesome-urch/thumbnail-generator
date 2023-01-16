@@ -1,4 +1,5 @@
 import { knexDb } from "../../config/database";
+// import * as Knex from "knex";
 
 class BaseModel {
   name: any;

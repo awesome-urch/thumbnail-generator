@@ -6,7 +6,7 @@ const config: { [key: string]: Knex.Config } = {
   development: {
     client: "mysql",
     connection: {
-      database: "demo_credit", //process.env.DATABASE_NAME
+      database: "demo_credit",
       user:     "root",
       password: ""
     },
