@@ -1,10 +1,12 @@
-import { User } from "../models/user";
+import User from "../models/user1";
 import {
   createError,
   BAD_REQUEST,
   UNAUTHORIZED,
   CONFLICT
 } from "../helpers/error_helper";
+
+// const User = new User();
 
 class AuthController {
     res: any;
