@@ -1,11 +1,9 @@
-"use strict";
-
 import knex from "knex";
+import { config } from "../../knexfile";
 
-// const env = process.env.NODE_ENV || "development";
-// import { config } from "../db/knexfile";
-// const knexDb = knex(config[env]);
+const env = process.env.NODE_ENV || "development";
+const knexDb = knex(config[env]);
 
 export {
-    knex as knexDb
+    knexDb
 };

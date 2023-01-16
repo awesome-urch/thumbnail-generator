@@ -103,16 +103,27 @@ const exportables = {
 };
 
 // All exportables stored as an array
-const all = Object.keys(exportables).map(key => exportables[key]);
+export const all = Object.keys(exportables).map(key => exportables[key]);
 
-module.exports = {
-  ...exportables,
-  all
-};
+// module.exports = {
+//   ...exportables,
+//   all
+// };
 
-export const exporters = {
-  ...exportables,
-  all
-};
+// export const exporters = {
+//   ...exportables,
+//   all
+// };
+
+// export {
+//   unauthorized,
+//   forbidden,
+//   conflict,
+//   badRequest,
+//   unprocessable,
+//   genericError,
+//   notFound,
+//   catchall
+// };
 
 

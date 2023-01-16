@@ -2,21 +2,26 @@
 
 import express from "express";
 
-import {
-  postLogin,
-  postRegister
-} from "../controllers/auth_controller";
-
-export const router = express.Router();
-// const {
-//   postLoginTest,
+// import {
 //   postLogin,
 //   postRegister
-// } = require('../controllers/auth_controller.ts')
+// } from "../controllers/auth_controller";
+import AuthController from "../controllers/auth_controller";
 
-router.post("/login", postLogin);
+export const router = express.Router();
 
-router.route("/register")
-  .post(postRegister);
+// router.post("/login", postLogin);
 
-// export { router }
+// router.route("/register")
+//   .post(postRegister);
+
+router.post("/login", (req, res, next) => {
+  const controller = new AuthController(req, res, next);
+  controller.postLogin();
+});
+
+router.post("/register", (req, res, next) => {
+  const controller = new AuthController(req, res, next);
+  controller.postRegister();
+});
+  

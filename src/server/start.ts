@@ -18,6 +18,7 @@ import bodyParser from "body-parser";
 // import { router as auth_routes } from "./routes/auth_routes.js";
 import { router as auth_routes } from "./routes/auth_routes";
 import { router as user_routes } from "./routes/user_routes";
+import { all } from "./middleware/error_middleware";
 
 const app = express();
 app.use(express.json());
@@ -36,6 +37,8 @@ app.use("/", [
 
 
 // app.use(require("./middleware/error_middleware.ts").all);
+
+app.use(all);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${ PORT }`);
