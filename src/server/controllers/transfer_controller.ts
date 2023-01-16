@@ -29,6 +29,13 @@ class TransferController extends BaseController {
       }));
     }
 
+    if(props.amount <= 0){
+      return this.next(createError({
+        status: BAD_REQUEST,
+        message: "`amount` is invalid"
+      }));
+    }
+
     const userFrom = await new User().findOne({ id: props.from });
     console.log(userFrom);
     if(!userFrom) return this.next(createError({

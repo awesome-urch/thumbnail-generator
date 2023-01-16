@@ -29,6 +29,13 @@ class TransactionController extends BaseController {
       }));
     }
 
+    if(props.amount <= 0){
+      return this.next(createError({
+        status: BAD_REQUEST,
+        message: "`amount` is invalid"
+      }));
+    }
+
     const user = await new User().findOne({ id: props.user_id });
     if(!user) return this.next(createError({
       status: UNAUTHORIZED,
@@ -54,6 +61,14 @@ class TransactionController extends BaseController {
     if (transactionType === "credit") {
       newBalance = parseFloat(wallet.balance) + parseFloat(props.amount);
     } else if (transactionType === "debit") {
+
+      if(parseFloat(wallet.balance) < parseFloat(props.amount)){
+        return this.next(createError({
+          status: UNPROCESSABLE,
+          message: "Insufficient funds"
+        }));
+      }
+
       newBalance = parseFloat(wallet.balance) - parseFloat(props.amount);
     }
 
@@ -71,11 +86,11 @@ class TransactionController extends BaseController {
     console.log(newTransaction);
     console.log(new Transaction().selectableProps);
 
-    await new Wallet().update(wallet.id,{ balance: newBalance });
+    await new Wallet().update(wallet.id,{ balance: newBalance, transaction_type: transactionType});
 
     this.res.json({
       ok: true,
-      message: "Wallet credited successfully",
+      message: "Wallet " + transactionType + "ed successfully",
       newTransaction
     });
   }
