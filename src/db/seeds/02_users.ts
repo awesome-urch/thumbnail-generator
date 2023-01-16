@@ -2,7 +2,7 @@
 
 import * as Knex from "knex";
 import { knexDb } from "../../config/database";
-import { User } from "../../server/models/user";
+import User from "../../server/models/user";
 
 export async function seed(): Promise<any> {
     // Deletes ALL existing entries

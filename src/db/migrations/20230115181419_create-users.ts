@@ -1,7 +1,9 @@
-import * as Knex from "knex";
+// import * as Knex from "knex";
+
+import { knexDb } from "../../config/database";
 
 
-export async function up(knex: Knex): Promise<void> {
+export async function up(knex): Promise<void> {
     return knex.schema.createTable("users", function (table) {
         table.increments("id").primary().unsigned();
         table.string("username").unique().index();
@@ -13,7 +15,10 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 
-export async function down(knex: Knex): Promise<void> {
+export async function down(knex): Promise<void> {
     return knex.schema.dropTable("users");
 }
+
+
+
 

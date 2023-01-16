@@ -1,6 +1,6 @@
 "use strict";
 
-import { User } from "../../server/models/user";
+import User from "../../server/models/user";
 
 
 exports.seed = async knex => {

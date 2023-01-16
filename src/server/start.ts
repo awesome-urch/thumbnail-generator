@@ -25,18 +25,10 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use("/", [
-//   require("./routes/auth_routes.ts"),
-//   require("./routes/user_routes.ts"),
-// ]);
-
 app.use("/", [
   auth_routes,
   user_routes,
 ]);
-
-
-// app.use(require("./middleware/error_middleware.ts").all);
 
 app.use(all);
 

@@ -1,4 +1,4 @@
-import User from "../models/user1";
+import User from "../models/user";
 import {
   createError,
   BAD_REQUEST,

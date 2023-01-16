@@ -1,87 +1,45 @@
 import { hash as _hash, compare } from "bcrypt";
-import { knexDb } from "../../config/database";
+import BaseModel from "./base";
 
-const name = "User";
-const tableName = "users";
-const selectableProps = [
-  "id",
-  "username",
-  "email",
-  "updated_at",
-  "created_at"
-];
 const SALT_ROUNDS = 10;
 const hashPassword = password => _hash(password, SALT_ROUNDS);
 const verifyPassword = (password, hash) => compare(password, hash);
-const beforeSave = user => {
-  console.log(user);
-  if (!user.password) return Promise.resolve(user);
-  return hashPassword(user.password)
-    .then(hash => ({ ...user, password: hash }))
-    .catch(err => `Error hashing password: ${ err }`);
-};
-const timeout = 1000;
-const knexInstance = knexDb("users");
-const create = async (props) => {
-  const user = await beforeSave(props);
-  delete props.id; // not allowed to set `id`
-  return knexInstance.insert(user).returning("*").timeout(timeout);
-};
 
-const findAll = () => knexInstance.select(selectableProps)
-    .from(tableName)
-    .timeout(timeout);
+class UserModel extends BaseModel {
+  constructor() {
+    super("User", "users", [
+      "id",
+      "username",
+      "email",
+      "updated_at",
+      "created_at"
+    ]);
+  }
 
-  const find = filters => knexInstance.select(selectableProps)
-    .from(tableName)
-    .where(filters)
-    .timeout(timeout);
+  beforeSave(data) {
+    console.log(data);
+    if (!data.password) return Promise.resolve(data);
+    return hashPassword(data.password)
+      .then(hash => ({ ...data, password: hash }))
+      .catch(err => `Error hashing password: ${ err }`);
+  }
 
-  // Same as `find` but only returns the first match if >1 are found.
-  const findOne = filters => find(filters)
-    .then(results => {
-      if (!Array.isArray(results)) return results;
-      return results[0];
-    });
-
-  const findById = id => knexInstance.select(selectableProps)
-    .from(tableName)
-    .where({ id })
-    .timeout(timeout);
-
-  const update = (id, props) => {
+  async create(props) {
+    const user = await this.beforeSave(props);
     delete props.id; // not allowed to set `id`
+    return this.knexInstance.insert(user).returning("*").timeout(this.timeout);
+  }
 
-    return knexInstance.update(props)
-      .from(tableName)
-      .where({ id })
-      .returning(selectableProps)
-      .timeout(timeout);
-  };
-
-  const updateRange = (options, props) => {
-    delete props.id; // not allowed to set `id`
-
-    return knexInstance.update(props)
-      .from(tableName)
-      .where(options.col,options.symbol,options.val)
-      .returning(selectableProps)
-      .timeout(timeout);
-  };
-
-  const destroy = id => knexInstance.del()
-    .from(tableName)
-    .where({ id })
-    .timeout(timeout);
-
-
-  const verify = async (username, password) => {
+  async verify(username, password){
     const matchErrorMsg = "Username or password do not match";
 
-    const user = await knexInstance.select()
-    .from(tableName)
+    const user = await this.knexInstance.select()
+    .from(this.tableName)
     .where({ username })
-    .timeout(timeout);
+    .timeout(this.timeout);
+
+    console.log("user coming");
+    console.log(username);
 
     if (!user.length) throw matchErrorMsg;
 
@@ -90,22 +48,11 @@ const findAll = () => knexInstance.select(selectableProps)
     if (!isMatch) throw matchErrorMsg;
 
     return user;
+  }
 
-  }; 
+}
 
-export const User = {
-  name: "User",
-  tableName: "users",
-  selectableProps: [ "id", "username", "email", "updated_at", "created_at" ],
-  timeout: 1000,
-  verify,
-  create,
-  findAll,
-  find,
-  findOne,
-  findById,
-  update,
-  updateRange,
-  destroy
-};
+const User = new UserModel;
+
+export default User;
 

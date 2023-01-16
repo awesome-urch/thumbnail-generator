@@ -1,6 +1,6 @@
 "use strict";
 
-import { User } from "../models/user";
+import User from "../models/user";
 
 const postUsers = (req, res, next) => {
   const props = req.body.user;
