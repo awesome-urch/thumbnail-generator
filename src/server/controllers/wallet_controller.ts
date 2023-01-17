@@ -6,19 +6,11 @@ import {
   UNAUTHORIZED,
   CONFLICT
 } from "../helpers/error_helper";
+import BaseController from "./base_controller";
 
 const INITIAL_TRANSACTION_TYPE = "initial";
 
-class WalletController {
-
-  res: any;
-  req: any;
-  next: any;
-  constructor(req, res, next) {
-    this.req = req;
-    this.res = res;
-    this.next = next;
-  }
+class WalletController extends BaseController {
 
   async createWallet() {
     const props = this.req.body;

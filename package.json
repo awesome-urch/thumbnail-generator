@@ -6,7 +6,8 @@
     "serve": "node dist/src/server/start.js",
     "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
     "start": "npm run serve",
-    "test": "mocha",
+    "test": "mocha -r ts-node/register ./test/* ",
+    "testdebug": "mocha --inspect-brk --colors --recursive --require ts-node/register --watch-extensions ts \"**/*spec.ts\" --exclude \"node_modules/**\"",
     "db:migrate": "npx knex migrate:latest",
     "db:seed": "npx knex seed:run",
     "build-ts": "tsc",
@@ -42,10 +43,12 @@
     "@types/node": "^18.11.18",
     "@types/pg": "^8.6.6",
     "@types/sinon": "^10.0.13",
+    "@types/sinon-chai": "^3.2.9",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.31.0",
     "nodemon": "^2.0.20",
+    "sinon-chai": "^3.7.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }

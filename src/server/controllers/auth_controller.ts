@@ -5,17 +5,10 @@ import {
   UNAUTHORIZED,
   CONFLICT
 } from "../helpers/error_helper";
+import BaseController from "./base_controller";
 
-class AuthController {
-    res: any;
-    req: any;
-    next: any;
-    constructor(req, res, next) {
-      this.req = req;
-      this.res = res;
-      this.next = next;
-    }
-
+class AuthController extends BaseController {
+  
     async postLogin(){
       const username = String(this.req.body.username);
       const password = String(this.req.body.password);

@@ -12,6 +12,13 @@ import BaseController from "./base_controller";
 
 class TransferController extends BaseController {
 
+  balanceIsMoreThanAmount(balance, amount){
+    if(balance <= amount){
+      return false;
+    }
+    return true;
+  }
+
   async transfer() {
     const props = this.req.body;
 
@@ -70,7 +77,7 @@ class TransferController extends BaseController {
       }
     }
 
-    if(walletFrom.balance < props.amount){
+    if(this.balanceIsMoreThanAmount(walletFrom.balance,props.amount) === false){
       return this.next(createError({
         status: UNPROCESSABLE,
         message: "Insufficient funds"
