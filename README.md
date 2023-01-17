@@ -12,6 +12,9 @@ git clone https://github.com/awesome-urch/demo-credit.git <project_name>
 cd <project_name>
 npm install
 ```
+
+- Configure your MySQL server and edit the .env file
+
 - Build and run the project
 ```
 npm run build
