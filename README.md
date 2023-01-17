@@ -12,14 +12,12 @@ git clone https://github.com/awesome-urch/demo-credit.git <project_name>
 cd <project_name>
 npm install
 ```
-- Configure your MySQL server
-```
 - Build and run the project
 ```
 npm run build
 npm start
+```
 
-``
 
 ## Folder Structure
 
