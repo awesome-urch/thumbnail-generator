@@ -12,13 +12,6 @@ import BaseController from "./base_controller";
 
 class TransferController extends BaseController {
 
-  balanceIsMoreThanAmount(balance, amount){
-    if(balance <= amount){
-      return false;
-    }
-    return true;
-  }
-
   async transfer() {
     const props = this.req.body;
 
@@ -36,10 +29,10 @@ class TransferController extends BaseController {
       }));
     }
 
-    if(props.amount <= 0){
+    if(this.checkAmount(props.amount) === false){
       return this.next(createError({
         status: BAD_REQUEST,
-        message: "`amount` is invalid"
+        message: "`amount` must be greater than 0"
       }));
     }
 

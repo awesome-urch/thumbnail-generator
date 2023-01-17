@@ -15,6 +15,17 @@ class BaseController {
     this.next = next;
   }
 
+  balanceIsMoreThanAmount(balance, amount){
+    if(balance <= amount){
+      return false;
+    }
+    return true;
+  }
+
+  checkAmount(amount){
+    return !(amount <= 0);
+  }
+
   generateReference(){
     return (Math.random() + 1).toString(36).substring(2);
   }

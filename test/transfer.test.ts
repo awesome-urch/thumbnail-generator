@@ -34,6 +34,12 @@ describe("TransferController", () => {
     expect(next).to.have.been.calledOnce;
   });
 
+  it("should return false when the when the amount being transferred is less than or equal to zero", () => {
+    const amount = -1;
+    const result = new TransferController(req, res, next).checkAmount(amount);
+    expect(result).to.be.false;
+  });
+
   it("should return false when the balance is less than the amount", () => {
     const balance = 100;
     const amount = 150;
