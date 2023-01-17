@@ -24,7 +24,7 @@ class AuthController extends BaseController {
           this.res.json({
             ok: true,
             message: "Login successful",
-            user
+            user:user[0]
           });
         }
       }catch(err){
@@ -53,10 +53,15 @@ class AuthController extends BaseController {
 
       const newUser = await new User().create(props);
 
+      const getUser = await new User().findOne({id:newUser[0]});
+
+      console.log(newUser);
+      console.log(getUser);
+
       this.res.json({
         ok: true,
         message: "Registration successful",
-        newUser
+        user:getUser
       });
     }
   }

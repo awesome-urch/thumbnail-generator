@@ -134,12 +134,12 @@ curl \
 {
   "ok": true,
   "message": "Wallet created successfully",
-  "user": {
-    "id": 2,
-    "username": "new-user",
-    "email": "my@email.com",
-    "created_at": "2023-01-01 14:43:02.183277-04",
-    "updated_at": "2023-01-01 14:43:02.183277-04"
+  "wallet": {
+    "id": 1,
+    "user_id": 1,
+    "balance": 0,
+    "updated_at": "2023-01-17T08:49:16.000Z",
+    "created_at": "2023-01-17T08:49:16.000Z"
   }
 }
 ```
@@ -162,12 +162,16 @@ curl \
 {
   "ok": true,
   "message": "Wallet credited successfully",
-  "user": {
-    "id": 2,
-    "username": "new-user",
-    "email": "my@email.com",
-    "created_at": "2023-01-01 14:43:02.183277-04",
-    "updated_at": "2023-01-01 14:43:02.183277-04"
+  "transaction": {
+    "id": 1,
+    "user_id": 1,
+    "amount": 100,
+    "balance": 100,
+    "transaction_type": "credit",
+    "transaction_reference": "r6kzbhe2kui",
+    "reason": null,
+    "updated_at": "2023-01-17T08:54:29.000Z",
+    "created_at": "2023-01-17T08:54:29.000Z"
   }
 }
 ```
@@ -190,12 +194,16 @@ curl \
 {
   "ok": true,
   "message": "Transfer successful",
-  "user": {
-    "id": 2,
-    "username": "new-user",
-    "email": "my@email.com",
-    "created_at": "2023-01-01 14:43:02.183277-04",
-    "updated_at": "2023-01-01 14:43:02.183277-04"
+  "transaction": {
+    "id": 1,
+    "user_id": 2,
+    "amount": 100,
+    "balance": 200,
+    "transaction_type": null,
+    "transaction_reference": "oot13d04o",
+    "reason": null,
+    "updated_at": "2023-01-16T16:35:29.000Z",
+    "created_at": "2023-01-16T16:35:29.000Z"
   }
 }
 ```
@@ -218,12 +226,16 @@ curl \
 {
   "ok": true,
   "message": "Wallet debited successfully",
-  "user": {
+  "transaction": {
     "id": 2,
-    "username": "new-user",
-    "email": "my@email.com",
-    "created_at": "2023-01-01 14:43:02.183277-04",
-    "updated_at": "2023-01-01 14:43:02.183277-04"
+    "user_id": 1,
+    "amount": 100,
+    "balance": 0,
+    "transaction_type": "debit",
+    "transaction_reference": "mdf9evx7m",
+    "reason": null,
+    "updated_at": "2023-01-17T08:56:32.000Z",
+    "created_at": "2023-01-17T08:56:32.000Z"
   }
 }
 ```

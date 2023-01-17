@@ -38,14 +38,12 @@ class UserModel extends BaseModel {
     .where({ username })
     .timeout(this.timeout);
 
-    console.log("user coming");
-    console.log(username);
-
     if (!user.length) throw matchErrorMsg;
 
     const [isMatch] = await Promise.all([verifyPassword(password, user[0].password)]);
 
     if (!isMatch) throw matchErrorMsg;
+    delete user[0].password;
 
     return user;
   }

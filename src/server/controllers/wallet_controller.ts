@@ -36,11 +36,12 @@ class WalletController extends BaseController {
     }));
 
     const newWallet = await new Wallet().create(props);
+    const getWallet = await new Wallet().findOne({id:newWallet[0]});
 
     this.res.json({
       ok: true,
       message: "Wallet created successfully",
-      newWallet
+      wallet:getWallet
     });
   }
 }

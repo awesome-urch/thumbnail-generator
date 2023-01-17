@@ -90,13 +90,15 @@ class TransferController extends BaseController {
       }));
     }
 
+    const getTransfer = await new Transfer().findOne({id:newTransfer[0]});
+
     await new Wallet().update(walletFrom.id,{ balance: newSenderBalance});
     await new Wallet().update(walletTo.id,{ balance: newReceiverBalance});
 
     this.res.json({
       ok: true,
       message: "Transfer successful",
-      newTransfer
+      transaction: getTransfer
     });
   }
 

@@ -82,6 +82,7 @@ class TransactionController extends BaseController {
         message: "An error occurred"
       }));
     }
+    const getTransaction = await new Transaction().findOne({id:newTransaction[0]});
 
     console.log(newTransaction);
     console.log(new Transaction().selectableProps);
@@ -91,7 +92,7 @@ class TransactionController extends BaseController {
     this.res.json({
       ok: true,
       message: "Wallet " + transactionType + "ed successfully",
-      newTransaction
+      transaction: getTransaction
     });
   }
 
