@@ -13,7 +13,7 @@ cd <project_name>
 npm install
 ```
 
-- Configure your MySQL server and edit the .env file
+- Configure your MySQL server and edit the .env file__
 Here is the [E-R Diagram](https://dbdesigner.page.link/XzhsNWVH27tgs2BU9)
 
 - Build and run the project
