@@ -1,7 +1,57 @@
 # Demo Credit API Docs
 
-Documentation.
+Here goes the documentation for this wallet service.
 
+## Running this service
+- Clone the repository
+```
+git clone https://github.com/awesome-urch/demo-credit.git <project_name>
+```
+- Install dependencies
+```
+cd <project_name>
+npm install
+```
+- Configure your MySQL server
+```
+- Build and run the project
+```
+npm run build
+npm start
+
+``
+
+## Folder Structure
+
+```
+/config
+  database.js -- loads the knexfile using settings for the current environment
+/db
+  /migrations
+  /seeds
+/server
+  /controllers -- business logic for handling API endpoints
+    base_controller.ts
+    auth_controller.ts
+    transaction_controller.ts
+    transfer_controller.ts
+    wallet_controller.ts
+  /helpers -- modules for common functions that sit outside controllers/models
+  /models  -- collection of all the models
+    base.ts
+    user.ts
+    transaction.ts
+    transfer.ts
+    wallet.ts
+  /routes -- defines API endpoints and passes requests to corresponding controllers
+    auth_routes.ts
+    transaction_routes.ts
+    transfer_routes.ts
+    wallet_routes.ts
+  start.ts -- the main Express app
+knexfile.ts -- defines all database settings for different environments
+package.json -- defines scripts for utilities like migrations and seeds
+```
 
 
 ## Authentication
@@ -36,9 +86,9 @@ curl \
 }
 ```
 
-## Register
+### Register
 
-### Request
+#### Request
 
 ```shell
 curl \
@@ -48,7 +98,7 @@ curl \
   http://localhost:3000/register
 ```
 
-### Response
+#### Response
 
 ```json
 {
@@ -64,9 +114,9 @@ curl \
 }
 ```
 
-## Create Wallet Account
+### Create Wallet Account
 
-### Request
+#### Request
 
 ```shell
 curl \
@@ -76,7 +126,7 @@ curl \
   http://localhost:3000/wallet/create
 ```
 
-### Response
+#### Response
 
 ```json
 {
@@ -92,9 +142,9 @@ curl \
 }
 ```
 
-## Fund Wallet Account
+### Fund Wallet Account
 
-### Request
+#### Request
 
 ```shell
 curl \
@@ -104,7 +154,7 @@ curl \
   http://localhost:3000/wallet/credit
 ```
 
-### Response
+#### Response
 
 ```json
 {
@@ -120,9 +170,9 @@ curl \
 }
 ```
 
-## Transfer to another User's Wallet Account
+### Transfer to another User's Wallet Account
 
-### Request
+#### Request
 
 ```shell
 curl \
@@ -132,7 +182,7 @@ curl \
   http://localhost:3000/wallet/transfer
 ```
 
-### Response
+#### Response
 
 ```json
 {
@@ -148,9 +198,9 @@ curl \
 }
 ```
 
-## Withdraw from Wallet Account
+### Withdraw from Wallet Account
 
-### Request
+#### Request
 
 ```shell
 curl \
@@ -160,7 +210,7 @@ curl \
   http://localhost:3000/wallet/debit
 ```
 
-### Response
+#### Response
 
 ```json
 {
