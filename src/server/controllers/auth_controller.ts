@@ -1,4 +1,6 @@
 import User from "../models/user";
+import AccessTokenModel from "../models/access_token";
+import crypto from "crypto";
 import {
   createError,
   BAD_REQUEST,
@@ -8,6 +10,30 @@ import {
 import BaseController from "./base_controller";
 
 class AuthController extends BaseController {
+
+  tokenExpireDays = 1;
+
+  
+
+  async generateToken(userId:string){
+    const currentDate = new Date();
+    const nextDate = new Date(currentDate);
+    nextDate.setDate(currentDate.getDate() + this.tokenExpireDays);
+
+    let token = crypto.randomBytes(64).toString("hex");
+    const tokenExists = await new AccessTokenModel().findOne({access_token:token});
+    while(tokenExists){
+      token = crypto.randomBytes(64).toString("hex");
+    }
+
+    const accessToken = await new AccessTokenModel().create({
+      user_id:userId,
+      access_token:token,
+      access_token_expires_on:nextDate
+    });
+
+    return await new AccessTokenModel().findOne({id:accessToken[0]});
+  }
   
     async postLogin(){
       const username = String(this.req.body.username);
@@ -19,12 +45,15 @@ class AuthController extends BaseController {
       }));
 
       try{
-        const user = await new User().verify(username, password);
-        if(user){
+        const users = await new User().verify(username, password);
+        if(users){
+          const user = users[0];
+          const getAccessToken = await this.generateToken(user.id);
+
           this.res.json({
             ok: true,
             message: "Login successful",
-            user:user[0]
+            data:{user:user,token:getAccessToken}
           });
         }
       }catch(err){
@@ -58,10 +87,12 @@ class AuthController extends BaseController {
       console.log(newUser);
       console.log(getUser);
 
+      const getAccessToken = await this.generateToken(getUser.id);
+
       this.res.json({
         ok: true,
         message: "Registration successful",
-        user:getUser
+        data:{user:getUser,token:getAccessToken}
       });
     }
   }

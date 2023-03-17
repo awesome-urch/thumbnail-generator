@@ -40,6 +40,8 @@ class BaseController {
     return user;
   }
 
+  
+
 }
   
 export default BaseController;

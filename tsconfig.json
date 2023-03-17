@@ -18,5 +18,5 @@
    },
    "include": [
        "src/**/*"
-, "knexfile.ts"   ]
+, "knexfile.ts", "express.d.ts"   ]
 }

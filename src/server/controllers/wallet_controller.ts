@@ -16,6 +16,8 @@ class WalletController extends BaseController {
     const props = this.req.body;
     props.transaction_type = INITIAL_TRANSACTION_TYPE;
 
+    console.log(this.req.user);
+
     if (!props.user_id ){
       return this.next(createError({
         status: BAD_REQUEST,

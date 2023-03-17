@@ -30,7 +30,7 @@ class UserModel extends BaseModel {
     return this.knexInstance.insert(user).returning("*").timeout(this.timeout);
   }
 
-  async verify(username, password){
+  async verify(username: string, password: string){
     const matchErrorMsg = "Username or password do not match";
 
     const user = await this.knexInstance.select()

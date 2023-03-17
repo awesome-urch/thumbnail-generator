@@ -7,6 +7,15 @@ class BaseModel {
   selectableProps: any;
   timeout: number;
   knexInstance: any;
+  //access_token
+  accessTokenTableName = "access_tokens";
+  accessTokenSelectableProps = [
+    "id",
+    "username",
+    "email",
+    "updated_at",
+    "created_at"
+  ];
 
   constructor(name, tableName, selectableProps, timeout = 1000) {
     this.name = name;

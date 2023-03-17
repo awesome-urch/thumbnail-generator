@@ -10,10 +10,12 @@ const config = {
     },
     migrations: {
       tableName: "knex_migrations",
-      directory: `${ __dirname }/src/db/migrations`
+      directory: "src/db/migrations",
+      // directory: `${ __dirname }/src/db/migrations`
     },
     seeds: {
-      directory: `${ __dirname }/src/db/seeds`
+      directory: "src/db/seeds",
+      // directory: `${ __dirname }/src/db/seeds`
     }
   },
   staging: {
