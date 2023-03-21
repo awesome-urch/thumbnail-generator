@@ -8,6 +8,7 @@ import {
 } from "../helpers/error_helper";
 import BaseController from "./base_controller";
 import { Configuration, OpenAIApi } from "openai";
+import GeneratedImageModel from "../models/generated_image";
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -48,24 +49,44 @@ class ImageController extends BaseController {
     //   message: "Invalid user"
     // }));
 
-    return this.next(createError({
-      status: UNAUTHORIZED,
-      message: "Unauthorized user"
-    }));
+    // return this.next(createError({
+    //   status: UNAUTHORIZED,
+    //   message: "Unauthorized user"
+    // }));
 
-    const response = await openai.createImage({
-      prompt: props.description,
-      n: 1,
-      size: "256x256",
-    });
+    const size = 256;
 
-    this.res.json({
-      ok: true,
-      message: "Request successful",
-      engines: response.data
-    });
+    try{
+      const response = await openai.createImage({
+        prompt: props.description,
+        n: 1,
+        size: "256x256",
+      });
 
-    // console.log(response.data);
+      //insert the generated image to db
+      const generatedImage = {
+        user: this.req.user,
+        description:props.description,
+        url: response.data.data[0].url,
+        base64: "",
+        size: size
+      };
+
+      await new GeneratedImageModel().create(generatedImage);
+
+      this.res.json({
+        ok: true,
+        message: "Request successful",
+        engines: response.data
+      });
+
+    }catch(err){
+      console.log("error with image");
+      return this.next(createError({
+        status: BAD_REQUEST,
+        message: err
+      }));
+    }
 
     return;
   }

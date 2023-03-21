@@ -12,8 +12,25 @@ import BaseController from "./base_controller";
 class AuthController extends BaseController {
 
   tokenExpireDays = 1;
+  accessToken = "";
 
-  
+  authenticationSuccessful(message,user){
+    console.log(message);
+    this.res.json({
+      ok: true,
+      message: message,
+      data:{user:user,token:this.accessToken}
+    });
+  }
+
+  createError(code, error){
+    console.log("unauthorized");
+    this.next(createError({
+      status: code,
+      message: error
+    }));
+  }
+
 
   async generateToken(userId:string){
     const currentDate = new Date();
@@ -49,18 +66,15 @@ class AuthController extends BaseController {
         if(users){
           const user = users[0];
           const getAccessToken = await this.generateToken(user.id);
+          this.accessToken = getAccessToken.access_token;
 
-          this.res.json({
-            ok: true,
-            message: "Login successful",
-            data:{user:user,token:getAccessToken}
-          });
+          this.authenticationSuccessful("Login successful",user);
+        }else{
+          this.createError(UNAUTHORIZED,"");
         }
       }catch(err){
-        this.next(createError({
-              status: UNAUTHORIZED,
-              message: err
-            }));
+        console.log("pt1");
+        this.createError(UNAUTHORIZED,err);
       }
     }
 
@@ -68,17 +82,19 @@ class AuthController extends BaseController {
       const props = this.req.body;
 
       if (!props.username || !props.password){
-        return this.next(createError({
-          status: BAD_REQUEST,
-          message: "`username` + `password` are required fields"
-        }));
+        return this.createError(
+          BAD_REQUEST,
+          "`username` + `password` are required fields");
       }
 
       const user = await new User().findOne({ username: props.username });
-      if(user) return this.next(createError({
-        status: CONFLICT,
-        message: "Username already exists"
-      }));
+
+      if(user){
+        return this.createError(
+          CONFLICT,
+          "Username already exists"
+        );
+      }
 
       const newUser = await new User().create(props);
 
@@ -88,12 +104,9 @@ class AuthController extends BaseController {
       console.log(getUser);
 
       const getAccessToken = await this.generateToken(getUser.id);
+      this.accessToken = getAccessToken;
 
-      this.res.json({
-        ok: true,
-        message: "Registration successful",
-        data:{user:getUser,token:getAccessToken}
-      });
+      this.authenticationSuccessful("Registration successful",getUser);
     }
   }
   

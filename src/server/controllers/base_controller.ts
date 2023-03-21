@@ -3,9 +3,7 @@ import {
   createError,
   UNAUTHORIZED} from "../helpers/error_helper";
 
-
 class BaseController {
-
   res: any;
   req: any;
   next: any;
@@ -39,8 +37,6 @@ class BaseController {
 
     return user;
   }
-
-  
 
 }
   
