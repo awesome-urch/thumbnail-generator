@@ -13,6 +13,7 @@ class AuthController extends BaseController {
 
   tokenExpireDays = 1;
   accessToken = "";
+  page = "login";
 
   authenticationSuccessful(message,user){
     console.log(message);
@@ -53,6 +54,7 @@ class AuthController extends BaseController {
   }
   
     async postLogin(){
+      this.page = "login";
       const username = String(this.req.body.username);
       const password = String(this.req.body.password);
 
@@ -79,7 +81,16 @@ class AuthController extends BaseController {
     }
 
     async postRegister() {
+      this.page = "register";
       const props = this.req.body;
+
+      const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+      if(!emailRegexp.test(props.email)){
+        return this.createError(
+          BAD_REQUEST,
+          "Email address is not valid");
+      }
 
       if (!props.username || !props.password){
         return this.createError(
@@ -96,7 +107,20 @@ class AuthController extends BaseController {
         );
       }
 
-      const newUser = await new User().create(props);
+      const user1 = await new User().findOne({ email: props.email });
+
+      if(user1){
+        return this.createError(
+          CONFLICT,
+          "Email address already exists"
+        );
+      }
+
+      const newUser = await new User().create({
+        email: props.email,
+        password: props.password,
+        username: props.username
+      });
 
       const getUser = await new User().findOne({id:newUser[0]});
 

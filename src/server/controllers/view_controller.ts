@@ -15,15 +15,12 @@ class ViewController extends BaseController {
 
     const getGeneratedImages = await new GeneratedImageModel().find({user:session.userId});
     console.log(getGeneratedImages);
-    if (session.authenticated) {
-          this.res.render("create-image",{
-            getGeneratedImages: getGeneratedImages
-        });
-      } else {
-          // Redirect to login page if user is not authenticated
-          this.res.redirect("/login");
-      }
+    this.res.render("create-image",{
+      getGeneratedImages: getGeneratedImages
+    });
   }
+
+  
 
 }
   

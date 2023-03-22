@@ -63,6 +63,8 @@ class ImageController extends BaseController {
         size: "256x256",
       });
 
+      console.log("we here");
+
       //insert the generated image to db
       const generatedImage = {
         user: this.req.user,
@@ -71,6 +73,8 @@ class ImageController extends BaseController {
         base64: "",
         size: size
       };
+
+      console.log(generatedImage);
 
       await new GeneratedImageModel().create(generatedImage);
 

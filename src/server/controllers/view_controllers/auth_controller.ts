@@ -17,9 +17,10 @@ class AuthViewController extends AuthController {
     }
   }
 
-  createError(error){
-    console.log("unauthorized 1");
-    this.res.render("login", {
+  createError(code,error){
+    console.log(error);
+    console.log("unauthorized " + this.page);
+    this.res.render(this.page, {
       message: error
     });
   }
