@@ -128,7 +128,9 @@ class AuthController extends BaseController {
       console.log(getUser);
 
       const getAccessToken = await this.generateToken(getUser.id);
-      this.accessToken = getAccessToken;
+      this.accessToken = getAccessToken.access_token;
+
+      console.log("gene1 "+ getAccessToken + " as :: " + this.accessToken);
 
       this.authenticationSuccessful("Registration successful",getUser);
     }

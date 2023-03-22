@@ -18,7 +18,9 @@ const configuration = new Configuration({
 class ImageController extends BaseController {
 
   async test(){
+    console.log("test");
     const props = this.req.body;
+    console.log(props);
 
     if (!props.description){
       return this.next(createError({

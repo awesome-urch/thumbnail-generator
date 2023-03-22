@@ -9,7 +9,7 @@ class AuthViewController extends AuthController {
     session.authenticated = true;
     session.userId = user.id;
     if (session.authenticated){
-      console.log("authenticated");
+      console.log("authenticated & userId is "+session.userId + " token: " + this.accessToken);
       this.res.redirect("/create-image");
     }else{
       this.res.redirect("/login");

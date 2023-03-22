@@ -99,6 +99,7 @@ export const authenticateHeader = async (req, res, next) => {
       });
     }
     const token = authHeader.split(" ")[1];
+    console.log("token to be displayed");
     console.log(token);
 
     const user = await new AccessTokenModel().findOne({ access_token: token });
