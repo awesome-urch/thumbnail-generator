@@ -1,5 +1,5 @@
 /*
-Template Name: Elite Admin
+Template Name: Openthumbnail
 Author: Wrappixel
 
 File: js

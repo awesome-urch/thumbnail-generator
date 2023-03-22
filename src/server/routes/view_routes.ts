@@ -8,6 +8,11 @@ import AuthViewController from "../controllers/view_controllers/auth_controller"
 export const router = express.Router();
 
 router.get("/", function(req, res){
+  const session = req.session as MySession;
+  if(session.authenticated){
+    res.redirect("/create-image");
+    return;
+  }
   res.render("index");
 });
 
@@ -22,10 +27,20 @@ router.post("/register", (req, res, next) => {
 });
 
 router.get("/login", function(req, res){
+  const session = req.session as MySession;
+  if(session.authenticated){
+    res.redirect("/create-image");
+    return;
+  }
   res.render("login");
 });
 
 router.get("/register", function(req, res){
+  const session = req.session as MySession;
+  if(session.authenticated){
+    res.redirect("/create-image");
+    return;
+  }
   res.render("register");
 });
 

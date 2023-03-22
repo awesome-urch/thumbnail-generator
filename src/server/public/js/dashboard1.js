@@ -2,7 +2,7 @@ $(function () {
     "use strict";
     //This is for the Notification top right
     $.toast({
-            heading: 'Welcome to Elite admin'
+            heading: 'Welcome to Openthumbnail'
             , text: 'Use the predefined ones, or specify a custom position object.'
             , position: 'top-right'
             , loaderBg: '#ff6849'
