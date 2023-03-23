@@ -4,9 +4,9 @@ const config = {
   development: {
     client: "mysql",
     connection: {
-      database: "demo_credit", //process.env.DATABASE_NAME
-      user:     "root",
-      password: ""
+      database: "demo_credit", //process.env.DATABASE_NAME //autodpom_openthumbnail
+      user:     "root", //autodpom_openthumbnail_user
+      password: "" //7JuzVqSS{yiR
     },
     migrations: {
       tableName: "knex_migrations",
